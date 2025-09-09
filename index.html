@@ -28,7 +28,8 @@
             max-width: 80%;
             z-index: 2;
             position: relative;
-            margin-bottom: 20px;
+            /* Thay đổi giá trị này để nâng bảng chữ lên */
+            margin-bottom: 200px; 
         }
 
         h1 {
@@ -81,9 +82,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Styles for the table */
         .table-container {
-            position: absolute; /* Giữ vị trí tuyệt đối cho bàn */
+            position: absolute;
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
@@ -102,10 +102,10 @@
             background-color: #8B4513;
             border-radius: 10px 10px 0 0;
             box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
-            position: relative; /* Rất quan trọng: Để bánh có thể định vị tương đối với mặt bàn này */
-            display: flex; /* Để căn giữa bánh theo chiều ngang trong table-top */
-            justify-content: center; /* Căn giữa bánh theo chiều ngang */
-            align-items: center; /* Căn giữa bánh theo chiều dọc */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .table-leg {
@@ -123,14 +123,12 @@
         .table-leg.right {
             right: 15%;
         }
-        /* End styles for the table */
-
-        /* Styles for the cake on the table */
+        
         .cake-on-table {
-            position: absolute; /* Định vị tuyệt đối so với table-top (cha có position: relative) */
-            bottom: 0px; /* Đặt bánh ở đáy của table-top, tức là trên mặt bàn */
+            position: absolute;
+            bottom: 0px;
             font-size: 5em;
-            z-index: 3; /* Đảm bảo bánh ở trên tất cả */
+            z-index: 3;
             animation: float 3s ease-in-out infinite;
         }
 
@@ -161,7 +159,7 @@
     <div class="container">
         <h1 id="greeting">Happy Birthday!</h1>
         <p class="message">
-            Hi My love<3,
+            Hi **Friend's Name**,
             <br><br>
             Happy birthday to you! Wishing you a day full of joy, happiness, and wonderful surprises.
             <br>
