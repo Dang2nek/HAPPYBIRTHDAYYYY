@@ -28,8 +28,7 @@
             max-width: 80%;
             z-index: 2;
             position: relative;
-            /* Thay đổi giá trị này để nâng bảng chữ lên */
-            margin-bottom: 200px; 
+            margin-bottom: 200px;
         }
 
         h1 {
@@ -50,7 +49,14 @@
             line-height: 1.6;
         }
 
-        .cta-button {
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .action-button, input[type="submit"] {
             background-color: #ff6347;
             color: white;
             padding: 12px 25px;
@@ -61,11 +67,43 @@
             border: none;
             cursor: pointer;
             font-size: 1em;
+            appearance: none; /* For input submit type */
         }
 
-        .cta-button:hover {
+        .action-button:hover, input[type="submit"]:hover {
             background-color: #e5533d;
             transform: translateY(-3px);
+        }
+
+        .wish-form {
+            display: none;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        
+        .wish-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .wish-form textarea {
+            width: 80%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            resize: vertical;
+            font-size: 1em;
+        }
+
+        .wish-form input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-size: 1em;
         }
 
         .surprise-message {
@@ -81,7 +119,8 @@
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
+        /* Styles for the table */
         .table-container {
             position: absolute;
             bottom: 0;
@@ -123,19 +162,30 @@
         .table-leg.right {
             right: 15%;
         }
-        
+
+        /* Styles for the cake on the table */
         .cake-on-table {
             position: absolute;
             bottom: 0px;
             font-size: 5em;
             z-index: 3;
-            animation: float 3s ease-in-out infinite;
+            animation: float 3s ease-in-out infinite, hideCake 1s forwards;
+            animation-play-state: paused;
+        }
+        
+        .cake-on-table.blow-out {
+            animation-play-state: running;
         }
 
         @keyframes float {
             0% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0); }
+        }
+        
+        @keyframes hideCake {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-50px) scale(0.5); }
         }
 
         .confetti {
@@ -159,13 +209,29 @@
     <div class="container">
         <h1 id="greeting">Happy Birthday!</h1>
         <p class="message">
-            Hi my love <3,
+            Hi **Friend's Name**,
             <br><br>
             Happy birthday to you! Wishing you a day full of joy, happiness, and wonderful surprises.
             <br>
             May the new year of your life bring you lots of success and cherished memories!
         </p>
-        <button class="cta-button" onclick="showSurprise()">Click for a gift!</button>
+        
+        <div class="button-group">
+            <button class="action-button" id="wishButton">Ước Nguyện</button>
+            <button class="action-button" id="blowButton">Thổi Nến</button>
+        </div>
+        
+        <form id="wishForm" class="wish-form" action="https://formspree.io/f/meolnaaq" method="POST">
+            <label for="name">Tên của bạn:</label>
+            <input type="text" id="name" name="Tên" required placeholder="Nhập tên của bạn">
+            
+            <label for="wish">Lời ước nguyện của bạn:</label>
+            <textarea id="wish" name="Lời ước nguyện" required placeholder="Nhập lời ước nguyện của bạn..."></textarea>
+            
+            <br>
+            <input type="submit" value="Gửi">
+        </form>
+
         <p class="surprise-message" id="surpriseMessage">
             Your gift is... our friendship!
             <br>
@@ -199,14 +265,29 @@
             }
 
             setInterval(createConfetti, 100);
-        });
 
-        function showSurprise() {
+            const wishButton = document.getElementById('wishButton');
+            const blowButton = document.getElementById('blowButton');
+            const wishForm = document.getElementById('wishForm');
             const surpriseMessage = document.getElementById('surpriseMessage');
-            surpriseMessage.style.display = 'block';
-            const button = document.querySelector('.cta-button');
-            button.style.display = 'none';
-        }
+            const cake = document.querySelector('.cake-on-table');
+
+            // Xử lý nút Ước Nguyện
+            wishButton.addEventListener('click', () => {
+                wishForm.style.display = 'block';
+                wishButton.style.display = 'none';
+                blowButton.style.display = 'none';
+            });
+
+            // Xử lý nút Thổi Nến
+            blowButton.addEventListener('click', () => {
+                cake.classList.add('blow-out');
+                blowButton.style.display = 'none';
+                wishButton.style.display = 'none';
+                // Hiện lời chúc ẩn thay cho form
+                surpriseMessage.style.display = 'block';
+            });
+        });
     </script>
 </body>
 </html>
