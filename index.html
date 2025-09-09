@@ -48,6 +48,28 @@
             margin: 20px 0;
             line-height: 1.6;
         }
+        
+        /* New Styles for the back button */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #ff6347;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: none; /* Hidden by default */
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            background-color: #e5533d;
+        }
+        /* End New Styles */
 
         .button-group {
             display: flex;
@@ -204,22 +226,24 @@
 </head>
 <body>
 
+    <button class="back-button" id="backButton">Go Back</button>
+
     <div class="container">
         <h1 id="greeting">Happy Birthday!</h1>
         <p class="message">
-            Hi my love <3,
+            Hi **Friend's Name**,
             <br><br>
             Happy birthday to you! Wishing you a day full of joy, happiness, and wonderful surprises.
             <br>
             May the new year of your life bring you lots of success and cherished memories!
         </p>
         
-        <div class="button-group">
+        <div class="button-group" id="mainButtons">
             <button class="action-button" id="wishButton">Make a Wish</button>
             <button class="action-button" id="blowButton">Blow out the Candles</button>
         </div>
         
-        <form id="wishForm" class="wish-form" action="https://formspree.io/f/meolnaaq" method="POST">
+        <form id="wishForm" class="wish-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="Tên" required placeholder="Enter your name">
             
@@ -248,7 +272,45 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const colors = ['#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688', '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722', '#795548'];
+            const wishButton = document.getElementById('wishButton');
+            const blowButton = document.getElementById('blowButton');
+            const mainButtons = document.getElementById('mainButtons');
+            const wishForm = document.getElementById('wishForm');
+            const surpriseMessage = document.getElementById('surpriseMessage');
+            const backButton = document.getElementById('backButton');
+            const cake = document.querySelector('.cake-on-table');
+            
+            // Function để hiển thị màn hình chính
+            function showMainScreen() {
+                mainButtons.style.display = 'flex';
+                wishForm.style.display = 'none';
+                surpriseMessage.style.display = 'none';
+                backButton.style.display = 'none';
+                cake.style.opacity = '1';
+                cake.classList.remove('blow-out');
+            }
 
+            // Xử lý nút Ước Nguyện
+            wishButton.addEventListener('click', () => {
+                mainButtons.style.display = 'none';
+                wishForm.style.display = 'block';
+                backButton.style.display = 'block';
+            });
+
+            // Xử lý nút Thổi Nến
+            blowButton.addEventListener('click', () => {
+                cake.classList.add('blow-out');
+                mainButtons.style.display = 'none';
+                surpriseMessage.style.display = 'block';
+                backButton.style.display = 'block';
+            });
+            
+            // Xử lý nút Quay Lại
+            backButton.addEventListener('click', () => {
+                showMainScreen();
+            });
+
+            // Hiệu ứng pháo hoa
             function createConfetti() {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
@@ -263,25 +325,6 @@
             }
 
             setInterval(createConfetti, 100);
-
-            const wishButton = document.getElementById('wishButton');
-            const blowButton = document.getElementById('blowButton');
-            const wishForm = document.getElementById('wishForm');
-            const surpriseMessage = document.getElementById('surpriseMessage');
-            const cake = document.querySelector('.cake-on-table');
-
-            wishButton.addEventListener('click', () => {
-                wishForm.style.display = 'block';
-                wishButton.style.display = 'none';
-                blowButton.style.display = 'none';
-            });
-
-            blowButton.addEventListener('click', () => {
-                cake.classList.add('blow-out');
-                blowButton.style.display = 'none';
-                wishButton.style.display = 'none';
-                surpriseMessage.style.display = 'block';
-            });
         });
     </script>
 </body>
