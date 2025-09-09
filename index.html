@@ -67,7 +67,7 @@
             border: none;
             cursor: pointer;
             font-size: 1em;
-            appearance: none; /* For input submit type */
+            appearance: none;
         }
 
         .action-button:hover, input[type="submit"]:hover {
@@ -120,7 +120,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Styles for the table */
         .table-container {
             position: absolute;
             bottom: 0;
@@ -163,7 +162,6 @@
             right: 15%;
         }
 
-        /* Styles for the cake on the table */
         .cake-on-table {
             position: absolute;
             bottom: 0px;
@@ -209,7 +207,7 @@
     <div class="container">
         <h1 id="greeting">Happy Birthday!</h1>
         <p class="message">
-            Hi **Friend's Name**,
+            Hi my love <3,
             <br><br>
             Happy birthday to you! Wishing you a day full of joy, happiness, and wonderful surprises.
             <br>
@@ -217,19 +215,19 @@
         </p>
         
         <div class="button-group">
-            <button class="action-button" id="wishButton">Ước Nguyện</button>
-            <button class="action-button" id="blowButton">Thổi Nến</button>
+            <button class="action-button" id="wishButton">Make a Wish</button>
+            <button class="action-button" id="blowButton">Blow out the Candles</button>
         </div>
         
-        <form id="wishForm" class="wish-form" action="https://formspree.io/f/meolnaaq" method="POST">
-            <label for="name">Tên của bạn:</label>
-            <input type="text" id="name" name="Tên" required placeholder="Nhập tên của bạn">
+        <form id="wishForm" class="wish-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="Tên" required placeholder="Enter your name">
             
-            <label for="wish">Lời ước nguyện của bạn:</label>
-            <textarea id="wish" name="Lời ước nguyện" required placeholder="Nhập lời ước nguyện của bạn..."></textarea>
+            <label for="wish">Your Wish:</label>
+            <textarea id="wish" name="Lời ước nguyện" required placeholder="Enter your wish..."></textarea>
             
             <br>
-            <input type="submit" value="Gửi">
+            <input type="submit" value="Submit">
         </form>
 
         <p class="surprise-message" id="surpriseMessage">
@@ -272,19 +270,16 @@
             const surpriseMessage = document.getElementById('surpriseMessage');
             const cake = document.querySelector('.cake-on-table');
 
-            // Xử lý nút Ước Nguyện
             wishButton.addEventListener('click', () => {
                 wishForm.style.display = 'block';
                 wishButton.style.display = 'none';
                 blowButton.style.display = 'none';
             });
 
-            // Xử lý nút Thổi Nến
             blowButton.addEventListener('click', () => {
                 cake.classList.add('blow-out');
                 blowButton.style.display = 'none';
                 wishButton.style.display = 'none';
-                // Hiện lời chúc ẩn thay cho form
                 surpriseMessage.style.display = 'block';
             });
         });
